@@ -43,7 +43,7 @@ jobs:
         run: make install
         working-directory: 'diff-pdf'
       - name: Checkout repository
-        uses: actions/upload-artifact@v3
+        uses: actions/checkout@v3
       - name: Run diff-pdf
         run: diff-pdf new/sample.pdf old/sample.pdf -s -m --output-diff=diff/sample.pdf
       - uses: actions/upload-artifact@v3
