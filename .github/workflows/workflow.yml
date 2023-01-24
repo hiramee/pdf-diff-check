@@ -47,6 +47,7 @@ jobs:
       - name: Run diff-pdf
         run: diff-pdf new/sample.pdf old/sample.pdf -s -m --output-diff=diff/sample.pdf
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
         with:
           name: diff-pdf
           path: diff/
