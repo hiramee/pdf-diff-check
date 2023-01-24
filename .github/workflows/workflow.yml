@@ -25,17 +25,29 @@ jobs:
         uses: actions/checkout@v3
         with: 
           repository: 'vslavik/diff-pdf'
+          path: 'diff-pdf'
       - name: Install deps1
         run: sudo apt-get install make automake g++
       - name: Install deps2
         run: sudo apt-get install libpoppler-glib-dev poppler-utils libwxgtk3.0-gtk3-dev
       - name: Install deps1
         run: ./bootstrap
+        working-directory: 'diff-pdf'
       - name: Install deps1
         run: ./configure
+        working-directory: 'diff-pdf'
       - name: make
         run: make
+        working-directory: 'diff-pdf'
       - name: Make Install
         run: make install
+        working-directory: 'diff-pdf'
+      - name: Checkout repository
+        uses: actions/upload-artifact@v3
       - name: Run diff-pdf
-        run: diff-pdf
+        run: diff-pdf new/sample.pdf old/sample.pdf -s -m --output-diff=diff/sample.pdf
+      - uses: actions/upload-artifact@v3
+        with:
+          name: diff-pdf
+          path: diff/
+
