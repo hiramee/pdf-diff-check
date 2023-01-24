@@ -1,0 +1,41 @@
+
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout diff-pdf
+      - uses: actions/checkout@v3
+        with: 
+          repository: 'vslavik/diff-pdf'
+      - name: Install deps1
+        run: sudo apt-get install make automake g++
+      - name: Install deps2
+        run: sudo apt-get install libpoppler-glib-dev poppler-utils libwxgtk3.0-gtk3-dev
+      - name: Install deps1
+        run: ./bootstrap
+      - name: Install deps1
+        run: ./configure
+      - name: make
+        run: make
+      - name: Make Install
+        run: make install
+      - name: Run diff-pdf
+        run: diff-pdf
